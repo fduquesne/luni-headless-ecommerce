@@ -8,6 +8,7 @@
     "check": "deno fmt --check && deno lint && deno check && deno test --permit-no-files"
   },
   "imports": {
+    "@std/assert": "jsr:@std/assert@^1.0.19",
     "zod": "npm:zod@^4.6.7"
   }
 }
