@@ -7,6 +7,7 @@
     "start": "deno run src/main.ts"
   },
   "imports": {
+    "@/": "./src/",
     "@hono/hono": "jsr:@hono/hono@^4.13.16",
     "@hono/zod-openapi": "jsr:@hono/zod-openapi@^1.6.3"
   }
