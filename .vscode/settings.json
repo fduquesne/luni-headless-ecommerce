@@ -2,5 +2,6 @@
   "deno.enablePaths": ["apps/api", "libs"],
   "deno.lint": true,
   "editor.defaultFormatter": "denoland.vscode-deno",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "files.eol": "\n"
 }
