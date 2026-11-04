@@ -6,5 +6,8 @@
   "tasks": {
     "dev": "deno task --cwd apps/api dev",
     "check": "deno fmt --check && deno lint && deno check && deno test --permit-no-files"
+  },
+  "imports": {
+    "zod": "npm:zod@^4.6.7"
   }
 }
