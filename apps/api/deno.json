@@ -1,0 +1,10 @@
+{
+  "name": "@luni/api",
+  "version": "0.0.0",
+  "exports": "./src/main.ts",
+  "tasks": {
+    "dev": "deno run --watch src/main.ts",
+    "start": "deno run src/main.ts"
+  },
+  "imports": {}
+}
