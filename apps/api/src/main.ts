@@ -1,6 +1,7 @@
 import denoConfig from "../deno.json" with { type: "json" };
 import { createApp } from "@/app.ts";
 import { Config, ConfigError, loadConfig } from "@/config.ts";
+import { createJsonLogger } from "@/logger.ts";
 
 /** Signals that trigger a graceful shutdown. SIGTERM is not available on Windows. */
 const SHUTDOWN_SIGNALS: Deno.Signal[] = Deno.build.os === "windows"
@@ -23,13 +24,14 @@ function readConfigOrExit(): Config {
 async function main(): Promise<void> {
   const config = readConfigOrExit();
   const version = denoConfig.version;
-  const app = createApp({ version });
+  const logger = createJsonLogger();
+  const app = createApp({ version, logger });
 
   const server = Deno.serve({
     hostname: "0.0.0.0",
     port: config.port,
     onListen: ({ port }) => {
-      console.log(`Luni API v${version} listening on http://localhost:${port}`);
+      logger.info(`Luni API v${version} listening on http://localhost:${port}`);
     },
   }, app.fetch);
 
@@ -39,7 +41,7 @@ async function main(): Promise<void> {
     const handler = () => {
       if (shuttingDown) return;
       shuttingDown = true;
-      console.log(`${signal} received, shutting down...`);
+      logger.info(`${signal} received, shutting down...`);
       void server.shutdown();
     };
     Deno.addSignalListener(signal, handler);
@@ -52,7 +54,7 @@ async function main(): Promise<void> {
     Deno.removeSignalListener(signal, handler);
   }
 
-  console.log("Luni API stopped");
+  logger.info("Luni API stopped");
 }
 
 if (import.meta.main) {
